@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <script>
+        function calculateTheTipAmount() {
+            var billAmount = document.getElementById("billAmount").value;
+            var serviceQuality = document.getElementById("serviceQuality").value;
+            var numberOfPeopleOnTheBill = document.getElementById(
+                "numberOfPeopleOnTheBill"
+            ).value;
+
+            if (billAmount === "" || serviceQuality == 0) {
+                alert("Please enter values");
+                return;
+            }
+
+            if (numberOfPeopleOnTheBill === "" || numberOfPeopleOnTheBill <= 1) {
+                numberOfPeopleOnTheBill = 1;
+                document.getElementById("each").style.display = "none";
+            } else {
+                document.getElementById("each").style.display = "block";
+            }
+
+            var total = (billAmount * serviceQuality) / numberOfPeopleOnTheBill;
+
+            total = Math.round(total * 100) / 100;
+
+            total = total.toFixed(2);
+
+            document.getElementById("totalTip").style.display = "block";
+            document.getElementById("tip").innerHTML = total;
+        }
+
+        document.getElementById("totalTip").style.display = "none";
+        document.getElementById("each").style.display = "none";
+
+        document.getElementById("calculate").onclick = function () {
+            calculateTheTipAmount();
+        };
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Tip Calculator</h1>
+        <div id="calculator">
+            <form>
+                <p>How much was your bill?</p>
+                <p>
+                    $ <input id="billAmount" type="text" placeholder="Bill Amount" />
+                </p>
+
+                <p>How was this service?</p>
+                <p>
+                    <select id="serviceQuality">
+                        <option disabled selected value="0">
+                            -- Choose an Option --
+                        </option>
+                        <option value="0.2">Good</option>
+                        <option value="0.15">It was OK</option>
+                        <option value="0.05">Terrible</option>
+                    </select>
+                </p>
+            </form>
+
+            <p>Number of people sharing the bill?</p>
+            <input id="numberOfPeopleOnTheBill" type="text" placeholder="1" />
+            people
+            <button type="button" id="calculate">Calculate Tip</button>
+        </div>
+        <div id="totalTip">
+            <sup>$</sup><span id="tip">0.00</span>
+            <small id="each">each</small>
+        </div>
+    </div>
+</body>
+
+</html>
